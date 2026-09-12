@@ -16,32 +16,38 @@ keeps its Mathlib-only footprint (`specs/lieb-dpi-scoping.md`, route (b), archit
 
 Pins are checked by `CsdQitBridge/Tests/AxiomAudit.lean` (`lake build CsdQitBridgeTests`).
 
-## Pins (2026-09-12)
+## Pins
 
-* Lean `v4.33.0`; Mathlib `db584cd6d46c92f209a44c0f1c829460d327499d` — identical in both libraries.
-* `csd-lean4` at `eee0d8a` (path dependency `../lean4`; the bridge imports only `Mathlib/QuantumInfo/StrongSubadditivity.lean`).
-* `physlib` at `8b2b237` (path dependency `../../physlib`, i.e. `C:\zayn\physlib`).
+`lakefile.toml` requires both libraries by pinned git revision (see the comment there): the two
+pins must agree on Lean and Mathlib, and at the current pins both resolve Mathlib to
+`db584cd6d46c92f209a44c0f1c829460d327499d` on Lean `v4.33.0`. Bump them together, never one
+alone. The Lean toolchain is `lean-toolchain`.
 
-Path dependencies are the probe configuration: both sides use the oleans they already have
-(`physlib`'s from its artifact cache, `lake exe cache get` then
-`LAKE_CONFIG=$PWD/lake-cache.toml lake cache get --scope=physlib-master/leanprover-lean4-v4.33.0/physlib`).
-To pin by tag instead, replace the two `path` requires with
+| Dependency | Revision |
+|---|---|
+| `csd-lean4` | `6b88f5f50fadc20ccd1a624d50c1eef163179c10` |
+| `physlib` | `8b2b23701c07409f882c49e0bd290a214e44450c` |
 
-```toml
-[[require]]
-name = "csd-lean4"
-git = "https://github.com/zblore/csd-lean4.git"
-rev = "<tag>"
-
-[[require]]
-name = "Physlib"
-git = "https://github.com/leanprover-community/physlib.git"
-rev = "8b2b237"
-```
+The bridge imports only `CsdLean4.Mathlib.QuantumInfo.StrongSubadditivity` from `csd-lean4` and
+`QuantumInfo.Entropy.SSA`, `QuantumInfo.Entropy.DPI` from `physlib`.
 
 ## Build
 
 ```
-lake build            # the bridge
-lake build CsdQitBridgeTests   # the axiom pins
+lake exe cache get               # Mathlib's oleans
+lake build                       # the bridge; csd-lean4 and physlib compile from source
+lake build CsdQitBridgeTests     # the axiom pins
 ```
+
+Neither dependency publishes oleans that a dependent workspace can restore, so the first build
+compiles the `csd-lean4` corpus and physlib's SSA cone (about an hour on a laptop, less in CI).
+For local work against a checkout of `csd-lean4` and physlib, the two `git` requires can be
+replaced by `path` requires pointing at those checkouts; that is how this package was developed
+and is not the published configuration.
+
+## The permanent cost
+
+Depending on two libraries by revision means every Lean or Mathlib bump opens a window in which
+this package does not build until both have landed on the new pins
+(`specs/lieb-dpi-scoping.md` §3b in `csd-lean4`). That tax is paid here, by whoever bumps the
+pins, and nowhere in `csd-lean4`.

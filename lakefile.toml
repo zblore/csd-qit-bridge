@@ -2,20 +2,25 @@ name = "csd-qit-bridge"
 defaultTargets = ["CsdQitBridge"]
 leanOptions = { autoImplicit = false, relaxedAutoImplicit = false }
 
-# Probe workspace (2026-09-12): path dependencies so that both sides use the
-# oleans they already have. Adoption "by tag" is the author's decision
-# (specs/lieb-dpi-scoping.md, route (b) P1).
+# Both dependencies by pinned revision (specs/lieb-dpi-scoping.md in csd-lean4, route (b) P1):
+# neither project merges into the other, csd-lean4 keeps its Mathlib-only footprint, and this
+# package is the certificate. The two pins must agree on Lean and Mathlib; at these revisions
+# both resolve Mathlib to db584cd6d46c92f209a44c0f1c829460d327499d on Lean v4.33.0. Bump them
+# together, never one alone.
 [[require]]
 name = "mathlib"
-path = "../lean4/.lake/packages/mathlib"
+git = "https://github.com/leanprover-community/mathlib4"
+rev = "db584cd6d46c92f209a44c0f1c829460d327499d"
 
 [[require]]
 name = "csd-lean4"
-path = "../lean4"
+git = "https://github.com/zblore/csd-lean4.git"
+rev = "6b88f5f50fadc20ccd1a624d50c1eef163179c10"
 
 [[require]]
 name = "Physlib"
-path = "../../physlib"
+git = "https://github.com/leanprover-community/physlib.git"
+rev = "8b2b23701c07409f882c49e0bd290a214e44450c"
 
 [[lean_lib]]
 name = "CsdQitBridge"
