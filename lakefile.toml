@@ -1,0 +1,25 @@
+name = "csd-qit-bridge"
+defaultTargets = ["CsdQitBridge"]
+leanOptions = { autoImplicit = false, relaxedAutoImplicit = false }
+
+# Probe workspace (2026-09-12): path dependencies so that both sides use the
+# oleans they already have. Adoption "by tag" is the author's decision
+# (specs/lieb-dpi-scoping.md, route (b) P1).
+[[require]]
+name = "mathlib"
+path = "../lean4/.lake/packages/mathlib"
+
+[[require]]
+name = "csd-lean4"
+path = "../lean4"
+
+[[require]]
+name = "Physlib"
+path = "../../physlib"
+
+[[lean_lib]]
+name = "CsdQitBridge"
+
+[[lean_lib]]
+name = "CsdQitBridgeTests"
+roots = ["CsdQitBridge.Tests.AxiomAudit"]
