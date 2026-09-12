@@ -19,7 +19,7 @@ Pins are checked by `CsdQitBridge/Tests/AxiomAudit.lean` (`lake build CsdQitBrid
 ## Pins (2026-09-12)
 
 * Lean `v4.33.0`; Mathlib `db584cd6d46c92f209a44c0f1c829460d327499d` — identical in both libraries.
-* `csd-lean4` at `df177bf` (path dependency `../lean4`).
+* `csd-lean4` at `eee0d8a` (path dependency `../lean4`; the bridge imports only `Mathlib/QuantumInfo/StrongSubadditivity.lean`).
 * `physlib` at `8b2b237` (path dependency `../../physlib`, i.e. `C:\zayn\physlib`).
 
 Path dependencies are the probe configuration: both sides use the oleans they already have
