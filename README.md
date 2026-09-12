@@ -40,7 +40,8 @@ lake build CsdQitBridgeTests     # the axiom pins
 ```
 
 Neither dependency publishes oleans that a dependent workspace can restore, so the first build
-compiles the `csd-lean4` corpus and physlib's SSA cone (about an hour on a laptop, less in CI).
+compiles them from source: only the import closure of the modules the bridge uses, five
+`csd-lean4` modules and physlib's SSA cone of about sixty, which CI does in under eight minutes.
 For local work against a checkout of `csd-lean4` and physlib, the two `git` requires can be
 replaced by `path` requires pointing at those checkouts; that is how this package was developed
 and is not the published configuration.
