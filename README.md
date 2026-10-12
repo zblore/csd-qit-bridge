@@ -20,13 +20,14 @@ Pins are checked by `CsdQitBridge/Tests/AxiomAudit.lean` (`lake build CsdQitBrid
 
 `lakefile.toml` requires both libraries by pinned git revision (see the comment there): the two
 pins must agree on Lean and Mathlib, and at the current pins both resolve Mathlib to
-`db584cd6d46c92f209a44c0f1c829460d327499d` on Lean `v4.33.0`. Bump them together, never one
-alone. The Lean toolchain is `lean-toolchain`.
+`5ed2965256430c3649e86755f9576b54eca72435` (tag `v4.34.0`) on Lean `v4.34.0`, which is
+also Lean-QIT `main`'s and Physlib `a66aa3d8`'s. Bump them together, never one alone.
+The Lean toolchain is `lean-toolchain`.
 
 | Dependency | Revision |
 |---|---|
-| `csd-lean4` | `6b88f5f50fadc20ccd1a624d50c1eef163179c10` |
-| `physlib` | `8b2b23701c07409f882c49e0bd290a214e44450c` |
+| `csd-lean4` | `367dc3b39d51bcb80f3e22b245a726253553f247` |
+| `physlib` | `a66aa3d8cac10de03c56dc2b4b57f19c5ec515c1` |
 
 The bridge imports only `CsdLean4.Mathlib.QuantumInfo.StrongSubadditivity` from `csd-lean4` and
 `QuantumInfo.Entropy.SSA`, `QuantumInfo.Entropy.DPI` from `physlib`.

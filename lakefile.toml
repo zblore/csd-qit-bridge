@@ -5,22 +5,23 @@ leanOptions = { autoImplicit = false, relaxedAutoImplicit = false }
 # Both dependencies by pinned revision (specs/lieb-dpi-scoping.md in csd-lean4, route (b) P1):
 # neither project merges into the other, csd-lean4 keeps its Mathlib-only footprint, and this
 # package is the certificate. The two pins must agree on Lean and Mathlib; at these revisions
-# both resolve Mathlib to db584cd6d46c92f209a44c0f1c829460d327499d on Lean v4.33.0. Bump them
+# both resolve Mathlib to 5ed2965256430c3649e86755f9576b54eca72435 (tag v4.34.0) on
+# Lean v4.34.0, which is also Lean-QIT main's and Physlib a66aa3d8's. Bump them
 # together, never one alone.
 [[require]]
 name = "mathlib"
 git = "https://github.com/leanprover-community/mathlib4"
-rev = "db584cd6d46c92f209a44c0f1c829460d327499d"
+rev = "5ed2965256430c3649e86755f9576b54eca72435"
 
 [[require]]
 name = "csd-lean4"
 git = "https://github.com/zblore/csd-lean4.git"
-rev = "6b88f5f50fadc20ccd1a624d50c1eef163179c10"
+rev = "367dc3b39d51bcb80f3e22b245a726253553f247"
 
 [[require]]
 name = "Physlib"
 git = "https://github.com/leanprover-community/physlib.git"
-rev = "8b2b23701c07409f882c49e0bd290a214e44450c"
+rev = "a66aa3d8cac10de03c56dc2b4b57f19c5ec515c1"
 
 [[lean_lib]]
 name = "CsdQitBridge"
